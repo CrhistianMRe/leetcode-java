@@ -1,3 +1,4 @@
+package com.crhistianm;
 
 public class ListNode {
     int val;
@@ -10,9 +11,9 @@ public class ListNode {
         this.val = val; 
         this.next = next; 
     }
-    public ListNode addTwoNumber(ListNode n1, ListNode n2){
+    protected ListNode addTwoNumber(ListNode n1, ListNode n2){
         ListNode list = new ListNode();
-        while(n1.next.has){}
+        while(n1.next.){}
 
         String first = String.valueOf(n1.next.next.val) + String.valueOf(n1.next.val) + String.valueOf(n1.val);
         String second = String.valueOf(n2.next.next.val) + String.valueOf(n2.next.val) + String.valueOf(n2.val);
