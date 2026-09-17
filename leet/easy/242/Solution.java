@@ -9,31 +9,20 @@ public class Solution {
 
     public boolean isAnagram(String s, String t) {
 
-        final int firstWordLength= s.length();
+        final int firstWordLength = s.length();
         final int secondWordLength = t.length();
 
         if(firstWordLength != secondWordLength) return false;
 
-        Map<String, Integer> firstWordLetters = new HashMap<>();
-        Map<String, Integer> secondWordLetters = new HashMap<>();
+        Map<Character, Integer> firstWordLetters = new HashMap<>();
+        Map<Character, Integer> secondWordLetters = new HashMap<>();
 
         for(int i = 0; i < firstWordLength; i++) {
-            String firstCurrentLetter = String.valueOf(s.charAt(i));
-            String secondCurrentLetter = String.valueOf(t.charAt(i));
+            Character firstCurrentLetter = s.charAt(i);
+            Character secondCurrentLetter = t.charAt(i);
 
-            if(firstWordLetters.containsKey(firstCurrentLetter)) {
-                firstWordLetters.put(firstCurrentLetter, firstWordLetters.get(firstCurrentLetter) + 1);
-
-            } else {
-                firstWordLetters.put(firstCurrentLetter, 0);
-            }
-
-            if(secondWordLetters.containsKey(secondCurrentLetter)) {
-                secondWordLetters.put(secondCurrentLetter, secondWordLetters.get(secondCurrentLetter) + 1);
-
-            } else {
-                secondWordLetters.put(secondCurrentLetter, 0);
-            }
+            firstWordLetters.put(firstCurrentLetter, firstWordLetters.getOrDefault(firstCurrentLetter, 1) + 1);
+            secondWordLetters.put(secondCurrentLetter, secondWordLetters.getOrDefault(secondCurrentLetter, 1) + 1);
 
         }
 
