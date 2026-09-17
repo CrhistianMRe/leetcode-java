@@ -1,24 +1,24 @@
 public class Solution {
 
-    public int[] replaceElements(int[] arr) {
+   public int[] replaceElements(int[] arr) {
 
-        final int arrayLength = arr.length;
+       final int arrayLength = arr.length;
 
-        for(int i = 0; i < arrayLength; i++) {
-            int max = 0;
+        //It starts with -1 as the last index will be always -1 
+        int currentMax = - 1;
+        
+        
+        //This keeps track of the largest right-side number as it is decreasing
+        for(int i = arrayLength - 1; i >= 0; i--) {
 
-            if(i == arrayLength - 1) {
-                arr[i] = -1;
-                break;
-            }
+            int temp = arr[i];
 
-            for(int a = i+1; a < arrayLength; a++) if(max < arr[a]) max = arr[a];
+            arr[i] = currentMax;
+
+            if(temp > currentMax)  currentMax = temp;
             
-            arr[i] = max;
         }
 
         return arr;
-        
-    }
-    
+    } 
 }
