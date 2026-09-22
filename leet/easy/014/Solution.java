@@ -1,33 +1,40 @@
-
 public class Solution {
-    public String longestCommonPrefix(String[] strs){
-        String prefix = "";
-        String testword = "";
-        int count = 0;
 
-        //Puedo intentar crear un array de prefijos en base a obtener los primeros chars
-        for(int i = 0; i < strs.length; i++){
-            for(int c = 0; c < strs.length; c++){
-                //Si el array esta vacio
-                if (!(strs[i].isEmpty()&& count < strs[i].length())){
+    public static void main(String[] args) {
+        String[] strs1 = {"flower","fkow"};
+        String[] strs2 = {"dog", "racecar"};
+        String[] strs3 = {"", "b"};
 
-                    if(strs.length == 1 ||(strs[c].startsWith(testword))){
-                        //Si el tamanio es de 1 o el cada 
-                        prefix = testword;
+        System.out.println(longestCommonPrefix(strs1));
 
-                    }
-                    //Sumar los chars de la primera palabra del array y asi consecutivamente
-                    testword += String.valueOf(strs[i].charAt(c));
-                    count++;
+    }
 
+    public static String longestCommonPrefix(String[] strs) {
 
-                }else {
+        //This problem is first iterating through the first letter of each element in the array and doing that consecutevily veryfing all are start and continue the same
 
-                    break;
+        final int arrayLength = strs.length;
 
-                }
+        String prefix = strs[0];
 
+        int currentPrefixLength = prefix.length();
+        if(currentPrefixLength < 1) return "";
+
+        for(int element = 1; element < arrayLength; element++) {
+
+            String currentElement = strs[element];
+            if(currentElement.length() < 1) return "";
+
+            if(currentElement.length() < currentPrefixLength) {
+                element = element - 1;
+                prefix = prefix.substring(0, currentElement.length());
+                currentPrefixLength = prefix.length();
+            } else if (!prefix.equals(currentElement.substring(0, currentPrefixLength))) {
+                element = element - 1;
+                currentPrefixLength--;
+                prefix = prefix.substring(0, currentPrefixLength);
             }
+
 
         }
 
@@ -35,5 +42,5 @@ public class Solution {
         return prefix;
     }
 
-    
+
 }
