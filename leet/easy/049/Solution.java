@@ -1,5 +1,9 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 class Solution {
 
@@ -9,77 +13,79 @@ class Solution {
 
     }
 
+    public static class IntegerArray {
+
+        private int[] array;
+
+        IntegerArray(int[] array) {
+            this.array = array;
+        }
+
+        public int[] getArray() {
+            return array;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + Arrays.hashCode(array);
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            IntegerArray other = (IntegerArray) obj;
+            if (!Arrays.equals(array, other.array))
+                return false;
+            return true;
+        }
+
+
+    }
+
+
+
     public static List<List<String>> groupAnagrams(String[] strs) {
 
         final int arrayLength = strs.length;
+
+        Map<IntegerArray, List<String>> mapOfAnagramGroups = new HashMap<>();
 
         List<List<String>> listOfAnagramGroups = new ArrayList<>();
 
         for(int i = 0; i < arrayLength; i++) {
 
-
-            List<String> currentGroup = new ArrayList<>();
-
             String currentMainWord = strs[i];
 
-            if(currentMainWord.equals("0")) continue;
+            int[] lettersCount = new int[26];
 
-            for(int a = 0; a < arrayLength; a++) {
-                String currentSecondaryWord = strs[a];
+            int currentWordLenght = currentMainWord.length();
 
-                if(currentSecondaryWord.equals("0")) continue;
+            for(int letterIndex = 0; letterIndex < currentWordLenght; letterIndex++) {
 
-                if(i == a) {
-                    currentGroup.add(currentMainWord);
-                    strs[i] = "0";
-                    continue;
-                }
+                int firstWordLetterIndex = currentMainWord.charAt(letterIndex) - 'a';
 
-
-                int firstWordLenght = currentMainWord.length();
-                int secondWordLenght = currentSecondaryWord.length();
-
-                if(firstWordLenght != secondWordLenght) continue;
-
-                boolean isCurrentAnagram = true;
-
-                int[] lettersCount = new int[26];
-
-                for(int letterIndex = 0; letterIndex < firstWordLenght ; letterIndex++) {
-
-                    int firstWordLetterIndex = currentMainWord.charAt(letterIndex) - 'a';
-                    int secondWordLetterIndex = currentSecondaryWord.charAt(letterIndex) - 'a';
-
-                    lettersCount[firstWordLetterIndex]++;
-                    lettersCount[secondWordLetterIndex]--;
-
-                }
-
-                for(int l = 0; l < 26; l++) {
-                    if(lettersCount[l] != 0) {
-                        isCurrentAnagram = false;
-                        break;
-                    }
-
-                }
-
-                if(isCurrentAnagram) {
-                    currentGroup.add(currentSecondaryWord);
-                    strs[a] = "0";
-                }
-                        
+                lettersCount[firstWordLetterIndex]++;
 
             }
 
+            IntegerArray wrapper = new IntegerArray(lettersCount);
 
-            listOfAnagramGroups.add(currentGroup);
-
+            mapOfAnagramGroups.computeIfAbsent(wrapper, k -> new ArrayList<>()).add(currentMainWord);
 
 
         }
 
-        return listOfAnagramGroups;
+        mapOfAnagramGroups.forEach((key, value) -> listOfAnagramGroups.add(value));
 
+        return listOfAnagramGroups;
 
     }
 
