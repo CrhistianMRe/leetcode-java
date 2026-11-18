@@ -18,6 +18,8 @@ public class Solution {
 
             String currentWord = words[i];
 
+            if(currentWord.length() > chars.length()) continue; 
+
             int currentWordCount = 0;
 
             int[] wordCharCount = new int[26];
@@ -30,7 +32,7 @@ public class Solution {
 
                 int remainingChars = charCount[currentChar] - wordCharCount[currentChar];
 
-                if(remainingChars >= 0) currentWordCount++;
+                if(remainingChars >= 0) { currentWordCount++; } else { break;}
 
             }
 
